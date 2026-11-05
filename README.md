@@ -69,4 +69,4 @@ This repository contains source and project documentation only. Local measuremen
 
 ## License
 
-A public reuse license has not yet been selected. Add your chosen LICENSE before advertising the project as open source.
+ThermoBar is available under the [MIT License](LICENSE). See [third-party notices](THIRD_PARTY_NOTICES.md) for the BetterBattery attribution and license.
