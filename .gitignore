@@ -1,0 +1,14 @@
+# Local build products
+/.build/
+/build/
+*.app/
+*.zip
+
+# Personal measurements and diagnostics
+*.csv
+/work/
+/outputs/
+
+# macOS metadata
+.DS_Store
+._*
