@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Deterministic tests (no live sensors)
+        run: ./test.sh
+      - name: Analyze C bridge
+        run: xcrun clang --analyze -Wall -Wextra -Werror -I Sources/SensorBridge/include -Xanalyzer -analyzer-output=text Sources/SensorBridge/Sensors.c
+      - name: Build and verify app bundle
+        run: |
+          ./build.sh
+          codesign --verify --strict --verbose=2 build/ThermoBar.app
